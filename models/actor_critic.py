@@ -31,6 +31,7 @@ class actor_critic(keras_model):
 
 		actor, critic, memory, action_input, random_process = self.get_network(network_name)
 
+		self.network_name = network_name
 		self.actor = actor
 		self.critic = critic
 		self.memory = memory
@@ -57,66 +58,4 @@ class actor_critic(keras_model):
 		self.agent.compile(Adam(lr=.001, clipnorm=1.), metrics=['mae'])
 
 
-	def populate_missing_input(self,env, actor, critic, memory, action_input, random_process,visualize=False):
 
-		### building 
-
-
-		if actor == 'example':
-			actor = Sequential()
-			actor.add(Flatten(input_shape=(1,) + env.observation_space.shape))
-			actor.add(Dense(32))
-			actor.add(Activation('relu'))
-			actor.add(Dense(32))
-			actor.add(Activation('relu'))
-			actor.add(Dense(32))
-			actor.add(Activation('relu'))
-			actor.add(Dense(nb_actions))
-			actor.add(Activation('sigmoid'))
-
-		if critic == 'example':
-			action_input = Input(shape=(nb_actions,), name='action_input')
-			observation_input = Input(shape=(1,) + env.observation_space.shape, name='observation_input')
-			flattened_observation = Flatten()(observation_input)
-			x = concatenate([action_input, flattened_observation])
-			x = Dense(64)(x)
-			x = Activation('relu')(x)
-			x = Dense(64)(x)
-			x = Activation('relu')(x)
-			x = Dense(64)(x)
-			x = Activation('relu')(x)
-			x = Dense(1)(x)
-			x = Activation('linear')(x)
-			critic = Model(inputs=[action_input, observation_input], outputs=x)
-
-
-		if memory == 'example':
-			memory = SequentialMemory(limit=100000, window_length=1)
-
-		if random_process == 'example':
-			random_process = OrnsteinUhlenbeckProcess(theta=.15, mu=0., sigma=.2, size=env.noutput)
-
-		return env, actor, critic, memory, action_input, random_process
-
-	def get_network(self, network_name):
-		network = self.import_class('nn.' + self.model_name + '.' + network_name )
-		network = network()
-		actor = network.build_actor(self)
-		critic, action_input = network.build_critic(self)
-		memory = network.build_memory(self)
-		random_process = network.build_random_process(self)
-		return actor, critic, memory, action_input, random_process
-
-	def import_class(self,name):
-	    components = name.split('.')
-	    mod = __import__(components[0])
-	    for comp in components[1:]:
-	        mod = getattr(mod, comp)
-	    return mod
-
-
-
-print('starting')
-test_agent = actor_critic()
-print('training')
-test_agent.train()
