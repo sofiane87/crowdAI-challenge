@@ -21,12 +21,14 @@ from keras.optimizers import RMSprop
 
 class keras_model:
 	def __init__(self,name='keras_model',env=None,network_name='keras_network'):
+		
 		self.agent = None
 		self.env = env
 		self.visualize = False
-		self.model_name = model_name
+		self.model_name = name
 		self.nb_max_episode_steps = 0
 		self.network_name = network_name
+
 
 	def train(self, nb_steps=10000, action_repetition=1, callbacks=None, verbose=1, nb_max_start_steps=0, start_step_policy=None, log_interval=10000,save_weights=True):
 		

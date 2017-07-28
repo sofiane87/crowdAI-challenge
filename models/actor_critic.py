@@ -19,7 +19,7 @@ from keras_model import keras_model
 
 class actor_critic(keras_model):
 
-	def __init__(self,name='actor_critic',env='example',network_name='example',gamma=.99,target_model_update=1e-3,delta_clip=1.,nb_steps_warmup_actor=100,nb_steps_warmup_critic=100,visualize=False,lr=.001, clipnorm=1,metrics=['mae']):
+	def __init__(self,name='actor_critic',env='example',network_name='example',gamma=.99,target_model_update=1e-3,delta_clip=1.,nb_steps_warmup_actor=100,nb_steps_warmup_critic=100,visualize=False,lr=.001, clipnorm=1,metrics=['mae'],save_path=None):
 
 		### Adding inputs to object		
 		if env == 'example':

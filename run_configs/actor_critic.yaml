@@ -1,0 +1,51 @@
+############################################################## Generic Parameters ###################################################################################
+
+config: './run_configs/actor_critic.yaml' 
+
+## parent configuration
+parent_config : './run_configs/keras_config.yaml'
+
+config_filename: actor_critic.yaml
+
+description: >
+	config for the example actor critic provided in the crowdAI challenge
+
+### Type of model
+
+model_class : actor_critic
+
+### Type of model
+
+network : example
+
+### model_name 
+
+model_name : actor_critic_example
+
+### train model 
+
+train : True
+
+### save model 
+
+save : True
+
+### save path : if null then the system will save the model in ./model_weights/model_class/network/weights/
+
+save_path : ./model_weights/actor_critic/example/weights/
+
+### testing model
+
+test : True
+
+### Visualize 
+
+Visualize : False
+
+### Submit
+
+submit : False
+
+
+
+
