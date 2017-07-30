@@ -17,7 +17,12 @@ from util.util import *
 class example(actor_critic_nn):
 
 	def __init__(self,shared_object):
-		self.env = shared_object.get("env",RunEnv(shared_object.get('visualize',False)))
+		self.env = shared_object.get("env",None)
+
+		if self.env:
+			self.env = RunEnv(shared_object.get('visualize',False))
+
+
 		self.nb_actions = self.env.action_space.shape[0]
 		
 		## memory parameters

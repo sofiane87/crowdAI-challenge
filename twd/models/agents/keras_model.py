@@ -28,7 +28,12 @@ class keras_model(object):
 		self.save_bool = shared_object.get('save',True)
 		self.save_path = shared_object.get('save_path',os.path.join('model_weights',self.model_class,self.name,self.network_name +'.h5f'))
 		self.save_folder = os.path.dirname(self.save_path)
-		self.env = shared_object.get('env',RunEnv(self.visualize))
+		self.env = shared_object.get('env',None)
+		if self.env == None:
+			self.env = RunEnv(self.visualize)
+			self.shared_object['env'] = self.env
+			shared_object['env'] = self.env
+			
 		self.env.reset()
 		self.nb_actions = self.env.action_space.shape[0]
 		self.metrics = shared_object.get('metrics',['mae'])
@@ -119,7 +124,7 @@ class keras_model(object):
 		
 
 		remote_base = 'http://grader.crowdai.org:1729'
-		env = RunEnv(visualize=False)
+		env = RunEnv(visualize=self.visualize)
 		client = Client(remote_base)
 
 		# Create environment
