@@ -1,14 +1,13 @@
 ############################################################## Generic Parameters ###################################################################################
 
-config: './run_configs/actor_critic.yaml' 
+config : './config/actor_critic.yaml' 
 
 ## parent configuration
-parent_config : './run_configs/keras_config.yaml'
+parent_config : './config/keras_config.yaml'
 
-config_filename: actor_critic.yaml
+config_filename : actor_critic.yaml
 
-description: >
-	config for the example actor critic provided in the crowdAI challenge
+description : "> \n config for the example actor critic provided in the crowdAI challenge"
 
 ### Type of model
 
@@ -47,5 +46,29 @@ Visualize : False
 submit : False
 
 
+####### Config specific to Actor Critic Agent ############
+
+gamma : .99
+
+nb_steps_warmup_critic  : 100
+
+nb_steps_warmup_actor  : 100
+
+target_model_update  : 1.0e-3
+
+delta_clip :  1.
+
+
+### Config Specific to the neural networks ####
+
+#### memory  parameters
+
+memoryLimit  : 100000
+window_length  : 1
+
+#### Random  process  parameters 
+random_process_theta  : .15
+random_process_mu  : 0.
+random_process_sigma  : .2
 
 

@@ -36,14 +36,14 @@ class Client(object):
 
     def _post_request(self, route, data):
         url = urlparse.urljoin(self.remote_base, route)
-        logger.info("POST {}\n{}".format(url, json.dumps(data)))
+        log_info("POST {}\n{}".format(url, json.dumps(data)))
         resp = self.session.post(urlparse.urljoin(self.remote_base, route),
                             data=json.dumps(data))
         return self._parse_server_error_or_raise_for_status(resp)
 
     def _get_request(self, route):
         url = urlparse.urljoin(self.remote_base, route)
-        logger.info("GET {}".format(url))
+        log_info("GET {}".format(url))
         resp = self.session.get(url)
         return self._parse_server_error_or_raise_for_status(resp)
 

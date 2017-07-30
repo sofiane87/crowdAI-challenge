@@ -1,0 +1,120 @@
+############################################################## Generic Parameters ###################################################################################
+
+config : './config/keras_config.yaml'
+
+config_filename : keras_config.yaml
+
+description : >
+  Template for the config files to run
+
+### Type of model
+
+model_class : null
+
+### Type of model
+
+network : null
+
+### model_name 
+
+model_name : null
+
+### train model 
+train : True
+
+### save model 
+
+save : True
+
+### save path : if null then the system will save the model in model_weights/model_class/network/weights/
+
+save_path : null
+
+### testing model
+
+test : True
+
+### Visualize 
+
+Visualize : False
+
+### Submit to the crowdAI
+
+submit : False
+
+### Submit token id
+
+submit_token : null
+
+
+### Agent parameters
+
+metrics : ['mae']
+
+### Which optmizer to use, currently the only available ones are the from keras :
+
+#### Available optimizers : ['RMSprop','Adagrad','Adadelta','Adam','Adamax','Nadam']
+optimizer : 'Adam'
+
+### optimizer parameters :
+
+optimizer_params : 
+## Common to all optimizers
+        lr : 0.001
+        clipnorm : 1
+        clipvalue : 0.5
+## specific to each optimizer
+        beta_1 : 0.9
+        beta_2 : 0.999
+        epsilon : 1.0e-08
+        decay : 0.0 
+
+
+
+############################################################## Train Method input parameters  #########################################################################
+
+
+### Number of training steps to be performed.
+
+
+nb_steps : 10000
+
+### Number of times the agent repeats the same action without observing the environment again. 
+#### Setting this to a value > 1 can be useful if a single action only has a very small effect on the environment.
+
+action_repetition : 1
+
+### List of callbacks to apply during training. See [callbacks](/callbacks) for details.
+#### callback class that will be called at every iteration and at every epoch end 
+#### available by default keras-rl are the followiing : 
+####['TestLogger','TrainEpisodeLogger','TrainIntervalLogger','FileLogger','Visualizer','ModelIntervalCheckpoint']
+
+callbacks : null
+
+
+### verbose (integer): 0 for no logging, 1 for interval logging (compare `log_interval`), 2 for episode logging
+verbose : 1
+
+### Number of maximum steps that the agent performs at the beginning
+#### of each episode using `start_step_policy`. Notice that this is an upper limit since
+#### the exact number of steps to be performed is sampled uniformly from [0, max_start_steps] at the beginning of each episode.
+nb_max_start_steps : 0
+
+# The policy to follow if `nb_max_start_steps` > 0. If set to `null`, a random action is performed.
+start_step_policy : null
+
+### If `verbose` = 1, the number of steps that are considered to be an interval.
+log_interval : 10000 
+
+### Number of steps per episode that the agent performs before  automatically resetting the environment. 
+#### Set to `null` if each episode should run until the env.timestep_limit
+
+nb_max_episode_steps : null
+
+############################################################## Test Method input parameters  #########################################################################
+
+### number of episodes to test on
+test_nb_episodes : 1
+
+### max number of steps per epsiode
+test_nb_max_episode_steps : 500
